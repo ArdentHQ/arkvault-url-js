@@ -1,5 +1,5 @@
 afterAll(() => {
-  if (global.gc) {
-    global.gc();
-  }
+	if (global.gc) {
+		global.gc();
+	}
 });
