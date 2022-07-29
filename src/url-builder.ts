@@ -18,9 +18,13 @@ export class URLBuilder {
 	}
 
 	public setNethashFromPreset(network: Networks) {
-		if (!Object.values(Networks).includes(network)) {
+		if (!Object.keys(Networks).includes(network)) {
 			throw new Error("network does not exist");
 		}
+
+		this.#nethash = Networks[network];
+
+		return this;
 	}
 
 	public setNethash(nethash: string) {
