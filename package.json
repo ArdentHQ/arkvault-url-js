@@ -7,12 +7,17 @@
 		"prettier": "prettier --write \"./*.{ts,tsx,js,jsx,json,md}\" \"./**/*.{ts,tsx,jsx,js,json,md}\"",
 		"lint": "eslint src/**/*.ts --fix --quiet",
 		"format": "pnpm lint && pnpm prettier",
-		"build": "tsc"
+		"build": "tsc",
+		"test": "jest --watch --colors",
+		"test:coverage": "jest --watchAll=false --ci --logHeapUsage --coverage --collectCoverageFrom=src/**/*.{js,jsx,ts,tsx}",
+		"test:ci": "jest --watchAll=false --ci --logHeapUsage --coverage",
+		"test:clean": "jest --clearCache"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/jest": "^28.1.6",
 		"@typescript-eslint/eslint-plugin": "^5.31.0",
 		"@typescript-eslint/parser": "^5.31.0",
 		"eslint": "^8.20.0",
@@ -26,6 +31,7 @@
 		"eslint-plugin-testing-library": "^5.5.1",
 		"eslint-plugin-unicorn": "^43.0.2",
 		"eslint-plugin-unused-imports": "^2.0.0",
+		"jest": "^28.1.3",
 		"prettier": "^2.7.1",
 		"typescript": "^4.7.4"
 	}
