@@ -48,6 +48,9 @@ export class URLBuilder {
 			throw new Error("nethash has to be set");
 		}
 
+		options.coin = this.#coin;
+		options.nethash = this.#nethash;
+
 		const queryString = new URLSearchParams(options as any).toString();
 
 		return `${this.#baseUrl}?${queryString}`;
