@@ -11,10 +11,18 @@ export class URLBuilder {
 		this.#baseUrl = baseUrl;
 	}
 
+	public coin() {
+		return this.#coin;
+	}
+
 	public setCoin(coin: string) {
 		this.#coin = coin;
 
 		return this;
+	}
+
+	public nethash() {
+		return this.#nethash;
 	}
 
 	public setNethashFromPreset(network: Networks) {
