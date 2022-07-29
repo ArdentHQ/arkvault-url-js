@@ -33,6 +33,5 @@
 			"@/*": ["./src/*", "./*"]
 		}
 	},
-	"include": ["custom-env.d.ts", "**/*.ts"],
-	"exclude": ["distribution", "**/*.test.ts", "node_modules"]
+	"exclude": ["distribution", "node_modules"]
 }
