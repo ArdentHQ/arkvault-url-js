@@ -46,6 +46,7 @@ export class URLBuilder {
 			throw new Error("recipient is required");
 		}
 
+		options.recipient = recipient;
 		options.method = Methods.Transfer;
 
 		return this.#generate(options);
