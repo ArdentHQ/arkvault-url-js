@@ -24,4 +24,16 @@ type GenerateMessageSignOptions = {
 	method?: Methods.Sign;
 } & MessageSignOptions;
 
-export type { BaseOptions, GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions };
+type GenerateVoteOptions = {
+	delegate?: string;
+	method?: Methods.Vote;
+} & BaseOptions;
+
+export type {
+	BaseOptions,
+	GenerateMessageSignOptions,
+	GenerateTransferOptions,
+	GenerateVoteOptions,
+	MessageSignOptions,
+	TransferOptions,
+};
