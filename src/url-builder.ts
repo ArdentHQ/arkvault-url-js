@@ -1,4 +1,4 @@
-import { TransferOptions, GenerateTransferOptions } from "@/contracts";
+import { GenerateTransferOptions, TransferOptions } from "@/contracts";
 import { Methods, Networks } from "@/enums";
 
 export class URLBuilder {

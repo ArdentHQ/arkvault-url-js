@@ -13,4 +13,4 @@ type GenerateTransferOptions = {
 	method?: string;
 } & TransferOptions;
 
-export type { BaseOptions, TransferOptions, GenerateTransferOptions };
+export type { BaseOptions, GenerateTransferOptions, TransferOptions };
