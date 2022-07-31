@@ -32,6 +32,28 @@ describe("URLBuilder", () => {
 		expect(() => builder.setNethashFromPreset("unknown")).toThrowError("network does not exist");
 	});
 
+	it("should generate transfer url with memo", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("ARK");
+		builder.setNethash(Networks["ark.mainnet"]);
+
+		expect(builder.generateTransfer("recipient", { memo: "memo" })).toBe(
+			"baseUrl?memo=memo&recipient=recipient&method=Transfer&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		);
+	});
+
+	it("should generate transfer url with amount", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("ARK");
+		builder.setNethash(Networks["ark.mainnet"]);
+
+		expect(builder.generateTransfer("recipient", { amount: 1000 })).toBe(
+			"baseUrl?amount=1000&recipient=recipient&method=Transfer&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		);
+	});
+
 	it("should generate transfer url", () => {
 		const builder = new URLBuilder("baseUrl");
 
