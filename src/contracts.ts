@@ -1,3 +1,5 @@
+import { Methods } from "./enums";
+
 type BaseOptions = {
 	coin?: string;
 	nethash?: string;
@@ -8,9 +10,18 @@ type TransferOptions = {
 	amount?: number;
 } & BaseOptions;
 
+type MessageSignOptions = {
+	message?: string;
+} & BaseOptions;
+
 type GenerateTransferOptions = {
 	recipient?: string;
-	method?: string;
+	method?: Methods.Transfer;
 } & TransferOptions;
 
-export type { BaseOptions, GenerateTransferOptions, TransferOptions };
+type GenerateMessageSignOptions = {
+	address?: string;
+	method?: Methods.Sign;
+} & MessageSignOptions;
+
+export type { BaseOptions, GenerateTransferOptions, TransferOptions, MessageSignOptions, GenerateMessageSignOptions };
