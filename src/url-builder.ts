@@ -1,4 +1,4 @@
-import { TransferOptions } from "@/contracts";
+import { GenerateTransferOptions, TransferOptions } from "@/contracts";
 import { Methods, Networks } from "@/enums";
 
 export class URLBuilder {
@@ -46,13 +46,14 @@ export class URLBuilder {
 			throw new Error("recipient is required");
 		}
 
-		options.recipient = recipient;
-		options.method = Methods.Transfer;
-
-		return this.#generate(options);
+		return this.#generate({
+			...options,
+			method: Methods.Transfer,
+			recipient,
+		});
 	}
 
-	#generate(options: TransferOptions): string {
+	#generate(options: GenerateTransferOptions): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
 		}

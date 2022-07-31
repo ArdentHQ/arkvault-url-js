@@ -1,5 +1,5 @@
 enum Methods {
-	"Transfer" = "Transfer",
+	"Transfer" = "transfer",
 }
 
 enum Networks {
