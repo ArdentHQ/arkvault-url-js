@@ -1,4 +1,11 @@
-import { GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions } from "@/contracts";
+import {
+	GenerateMessageSignOptions,
+	GenerateTransferOptions,
+	GenerateVoteOptions,
+	MessageSignOptions,
+	TransferOptions,
+} from "@/contracts";
+
 import { Methods, Networks } from "@/enums";
 
 export class URLBuilder {
@@ -64,12 +71,23 @@ export class URLBuilder {
 
 		return this.#generate({
 			...options,
-			address,
 			method: Methods.Sign,
+			address,
 		});
 	}
 
-	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions): string {
+	public generateVote(delegate: string) {
+		if (!delegate) {
+			throw new Error("delegate is required");
+		}
+
+		return this.#generate({
+			method: Methods.Vote,
+			delegate,
+		});
+	}
+
+	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions | GenerateVoteOptions): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
 		}

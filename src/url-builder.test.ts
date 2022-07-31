@@ -120,4 +120,25 @@ describe("URLBuilder", () => {
 		//@ts-ignore
 		expect(() => builder.generateMessageSign()).toThrowError("address is required");
 	});
+
+	it("should generate vote url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("ARK");
+		builder.setNethash(Networks["ark.mainnet"]);
+
+		expect(builder.generateVote("delegate")).toBe(
+			"baseUrl?method=vote&delegate=delegate&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		);
+	});
+
+	it("should require delegate when generating vote url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("ARK");
+		builder.setNethash(Networks["ark.mainnet"]);
+
+		//@ts-ignore
+		expect(() => builder.generateVote()).toThrowError("delegate is required");
+	});
 });

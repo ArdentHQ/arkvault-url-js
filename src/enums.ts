@@ -1,6 +1,7 @@
 enum Methods {
 	"Transfer" = "transfer",
 	"Sign" = "sign",
+	"Vote" = "vote",
 }
 
 enum Networks {
