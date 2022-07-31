@@ -5,9 +5,12 @@ type BaseOptions = {
 };
 
 type TransferOptions = {
-	recipient?: string;
 	memo?: string;
 	amount?: number;
 } & BaseOptions;
 
-export type { BaseOptions, TransferOptions };
+type GenerateTransferOptions = {
+	recipient?: string;
+} & TransferOptions;
+
+export type { BaseOptions, TransferOptions, GenerateTransferOptions };

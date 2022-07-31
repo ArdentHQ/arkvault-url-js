@@ -61,7 +61,7 @@ describe("URLBuilder", () => {
 		builder.setNethash(Networks["ark.mainnet"]);
 
 		expect(builder.generateTransfer("recipient")).toBe(
-			"baseUrl?recipient=recipient&method=Transfer&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+			"baseUrl?method=Transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
 
