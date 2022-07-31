@@ -1,4 +1,4 @@
-import { GenerateTransferOptions, TransferOptions } from "./contracts.js";
+import { GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions } from "./contracts.js";
 import { Methods, Networks } from "./enums.js";
 
 export class URLBuilder {
@@ -54,7 +54,23 @@ export class URLBuilder {
 		});
 	}
 
-	#generate(options: GenerateTransferOptions): string {
+	public generateMessageSign(address: string, options: MessageSignOptions = {}) {
+		if (!address) {
+			throw new Error("address is required");
+		}
+
+		if (!options.message) {
+			throw new Error("message is required");
+		}
+
+		return this.#generate({
+			...options,
+			address,
+			method: Methods.Sign,
+		});
+	}
+
+	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
 		}
