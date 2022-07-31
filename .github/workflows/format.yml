@@ -1,0 +1,39 @@
+name: Format
+
+on:
+    pull_request:
+        types: [ready_for_review, synchronize, opened, draft]
+
+jobs:
+    eslint:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [16.9.1]
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 6.24.4
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: pnpm
+
+            - name: Update System
+              run: sudo apt-get update
+
+            - name: Install (pnpm)
+              run: pnpm install --frozen-lockfile
+
+            - name: Format
+              run: pnpm format
+
+            - uses: stefanzweifel/git-auto-commit-action@v4
+              with:
+                  commit_message: "style: resolve style guide violations"
+                  branch: ${{ github.head_ref }}
