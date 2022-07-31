@@ -33,7 +33,7 @@ export type {
 	BaseOptions,
 	GenerateMessageSignOptions,
 	GenerateTransferOptions,
+	GenerateVoteOptions,
 	MessageSignOptions,
 	TransferOptions,
-	GenerateVoteOptions,
 };

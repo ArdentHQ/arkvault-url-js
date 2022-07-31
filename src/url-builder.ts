@@ -5,7 +5,6 @@ import {
 	MessageSignOptions,
 	TransferOptions,
 } from "@/contracts";
-
 import { Methods, Networks } from "@/enums";
 
 export class URLBuilder {
@@ -71,8 +70,8 @@ export class URLBuilder {
 
 		return this.#generate({
 			...options,
-			method: Methods.Sign,
 			address,
+			method: Methods.Sign,
 		});
 	}
 
@@ -82,8 +81,8 @@ export class URLBuilder {
 		}
 
 		return this.#generate({
-			method: Methods.Vote,
 			delegate,
+			method: Methods.Vote,
 		});
 	}
 
