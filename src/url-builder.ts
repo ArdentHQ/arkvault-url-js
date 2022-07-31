@@ -64,8 +64,8 @@ export class URLBuilder {
 
 		return this.#generate({
 			...options,
-			method: Methods.Sign,
 			address,
+			method: Methods.Sign,
 		});
 	}
 

@@ -24,4 +24,4 @@ type GenerateMessageSignOptions = {
 	method?: Methods.Sign;
 } & MessageSignOptions;
 
-export type { BaseOptions, GenerateTransferOptions, TransferOptions, MessageSignOptions, GenerateMessageSignOptions };
+export type { BaseOptions, GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions };
