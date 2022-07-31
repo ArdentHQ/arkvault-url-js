@@ -25,7 +25,7 @@ export class URLBuilder {
 		return this.#nethash;
 	}
 
-	public setNethashFromPreset(network: Networks) {
+	public setNethashFromPreset(network: string) {
 		if (!Object.keys(Networks).includes(network)) {
 			throw new Error("network does not exist");
 		}
