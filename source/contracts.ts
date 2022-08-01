@@ -11,7 +11,7 @@ type TransferOptions = {
 } & BaseOptions;
 
 type MessageSignOptions = {
-	message?: string;
+	address?: string;
 } & BaseOptions;
 
 type GenerateTransferOptions = {
@@ -20,7 +20,7 @@ type GenerateTransferOptions = {
 } & TransferOptions;
 
 type GenerateMessageSignOptions = {
-	address?: string;
+	message?: string;
 	method?: Methods.Sign;
 } & MessageSignOptions;
 

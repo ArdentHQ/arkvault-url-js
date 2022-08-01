@@ -143,30 +143,18 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		builder.setCoin("ARK");
-		builder.setNethash(Networks["ark.mainnet"]);
-
-		assert.is(builder.generateMessageSign("address", { message: "test" }),
-			"baseUrl?message=test&address=address&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		assert.is(builder.generateMessageSign("test", { address: "address" }),
+			"baseUrl?address=address&message=test&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
 
 	it("should require message when generating sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		builder.setCoin("ARK");
-		builder.setNethash(Networks["ark.mainnet"]);
-
-		assert.throws(() => builder.generateMessageSign("address"), "message is required");
-	});
-
-	it("should require address when generating sign message  url", () => {
-		const builder = new URLBuilder("baseUrl");
-
-		builder.setCoin("ARK");
-		builder.setNethash(Networks["ark.mainnet"]);
-
+		assert.throws(() => builder.generateMessageSign(""), "message is required");
 		//@ts-ignore
-		assert.throws(() => builder.generateMessageSign(), "address is required");
+		assert.throws(() => builder.generateMessageSign(), "message is required");
+		//@ts-ignore
+		assert.throws(() => builder.generateMessageSign(undefined), "message is required");
 	});
 });
