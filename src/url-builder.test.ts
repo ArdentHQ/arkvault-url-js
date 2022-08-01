@@ -97,8 +97,8 @@ describe("URLBuilder", () => {
 		builder.setCoin("ARK");
 		builder.setNethash(Networks["ark.mainnet"]);
 
-		expect(builder.generateMessageSign("address", { message: "test" })).toBe(
-			"baseUrl?message=test&address=address&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		expect(builder.generateMessageSign("test", { address: "address" })).toBe(
+			"baseUrl?address=address&message=test&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
 
@@ -108,17 +108,9 @@ describe("URLBuilder", () => {
 		builder.setCoin("ARK");
 		builder.setNethash(Networks["ark.mainnet"]);
 
-		expect(() => builder.generateMessageSign("address")).toThrowError("message is required");
-	});
-
-	it("should require address when generating sign message  url", () => {
-		const builder = new URLBuilder("baseUrl");
-
-		builder.setCoin("ARK");
-		builder.setNethash(Networks["ark.mainnet"]);
-
-		//@ts-ignore
-		expect(() => builder.generateMessageSign()).toThrowError("address is required");
+		expect(() => builder.generateMessageSign()).toThrowError("message is required");
+		expect(() => builder.generateMessageSign("")).toThrowError("message is required");
+		expect(() => builder.generateMessageSign(undefined)).toThrowError("message is required");
 	});
 
 	it("should generate vote url", () => {

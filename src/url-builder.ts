@@ -59,18 +59,14 @@ export class URLBuilder {
 		});
 	}
 
-	public generateMessageSign(address: string, options: MessageSignOptions = {}) {
-		if (!address) {
-			throw new Error("address is required");
-		}
-
-		if (!options.message) {
+	public generateMessageSign(message: string, options: MessageSignOptions = {}) {
+		if (!message) {
 			throw new Error("message is required");
 		}
 
 		return this.#generate({
 			...options,
-			address,
+			message,
 			method: Methods.Sign,
 		});
 	}
