@@ -1,6 +1,6 @@
 {
 	"name": "arkvault-url",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"description": "URL parser and validator for ARK based networks",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
