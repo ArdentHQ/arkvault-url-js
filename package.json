@@ -1,5 +1,5 @@
 {
-	"name": "arkvault-url",
+	"name": "@ardenthq/arkvault-url",
 	"version": "1.0.0",
 	"description": "URL parser and validator for ARK based networks",
 	"scripts": {
