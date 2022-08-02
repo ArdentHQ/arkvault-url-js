@@ -2,6 +2,7 @@
 	"name": "@ardenthq/arkvault-url",
 	"version": "1.0.0",
 	"description": "URL parser and validator for ARK based networks",
+	"main": "distribution/index.js",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"prettier": "prettier --write \"./*.{ts,tsx,js,jsx,json,md}\" \"./**/*.{ts,tsx,jsx,js,json,md}\"",
