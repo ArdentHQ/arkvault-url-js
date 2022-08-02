@@ -2,6 +2,24 @@ import { Networks } from "./enums";
 import { URLBuilder } from "./url-builder";
 
 describe("URLBuilder", () => {
+	it("should use default base url", () => {
+		const builder = new URLBuilder();
+
+		builder.setCoin("coin");
+		builder.setNethash("nethash");
+
+		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^https://app.arkvault.io/#/"));
+	});
+
+	it("should use given base url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("coin");
+		builder.setNethash("nethash");
+
+		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^baseUrl"));
+	});
+
 	it("should set coin", () => {
 		const builder = new URLBuilder("baseUrl");
 
