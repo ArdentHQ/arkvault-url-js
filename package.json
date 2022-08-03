@@ -1,7 +1,7 @@
 {
 	"name": "@ardenthq/arkvault-url",
 	"type": "module",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "URL parser and validator for ARK based networks",
 	"exports": "./distribution/index.js",
 	"scripts": {
