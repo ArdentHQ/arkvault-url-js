@@ -10,6 +10,32 @@ on:
             - synchronize
             - opened
 jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version:
+                    - 16.9.1
+        concurrency:
+            group: ${{ github.head_ref }}-test-app
+            cancel-in-progress: true
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
+                  token: ${{ secrets.GH_TOKEN }}
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 6.24.4
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: pnpm
+            - name: Install (pnpm)
+              run: pnpm install --frozen-lockfile
+            - name: Build
+              run: pnpm build
+
     source:
         runs-on: ubuntu-latest
         strategy:
