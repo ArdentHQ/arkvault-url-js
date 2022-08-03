@@ -10,7 +10,7 @@ on:
             - synchronize
             - opened
 jobs:
-    app:
+    source:
         runs-on: ubuntu-latest
         strategy:
             matrix:
@@ -34,4 +34,4 @@ jobs:
             - name: Install (pnpm)
               run: pnpm install --frozen-lockfile
             - name: Test
-                run: pnpm run test:coverage
+              run: pnpm run test:coverage
