@@ -1,5 +1,5 @@
-import { GenerateTransferOptions, TransferOptions } from "@/contracts";
-import { Methods, Networks } from "@/enums";
+import { GenerateTransferOptions, TransferOptions } from "./contracts";
+import { Methods, Networks } from "./enums";
 
 export class URLBuilder {
 	readonly #baseUrl: string;

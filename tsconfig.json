@@ -28,10 +28,7 @@
 		"target": "ESNext",
 		"typeRoots": ["./node_modules/@types"],
 		"useDefineForClassFields": true,
-		"useUnknownInCatchVariables": false,
-		"paths": {
-			"@/*": ["./src/*", "./*"]
-		}
+		"useUnknownInCatchVariables": false
 	},
 	"exclude": ["distribution", "node_modules"]
 }
