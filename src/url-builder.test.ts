@@ -1,5 +1,5 @@
-import { Networks } from "./enums";
-import { URLBuilder } from "./url-builder";
+import { Networks } from "./enums.js";
+import { URLBuilder } from "./url-builder.js";
 
 describe("URLBuilder", () => {
 	it("should set coin", () => {

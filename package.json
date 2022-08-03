@@ -1,8 +1,9 @@
 {
 	"name": "@ardenthq/arkvault-url",
+	"type": "module",
 	"version": "1.0.0",
 	"description": "URL parser and validator for ARK based networks",
-	"main": "distribution/index.js",
+	"exports": "./distribution/index.js",
 	"scripts": {
 		"preinstall": "npx only-allow pnpm",
 		"prettier": "prettier --write \"./*.{ts,tsx,js,jsx,json,md}\" \"./**/*.{ts,tsx,jsx,js,json,md}\"",
@@ -40,5 +41,8 @@
 		"jest": "^28.1.3",
 		"prettier": "^2.7.1",
 		"typescript": "^4.7.4"
+	},
+	"engines": {
+		"node": ">=14.16"
 	}
 }
