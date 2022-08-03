@@ -105,7 +105,8 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should include memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient", { memo: "test" })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { memo: "test" }),
 			"baseUrl?memo=test&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -113,7 +114,8 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should include amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient", { amount: 10 })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { amount: 10 }),
 			"baseUrl?amount=10&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -121,16 +123,19 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should not include amount & memo options if they are falsy", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient", { amount: undefined, memo: undefined })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { amount: undefined, memo: undefined }),
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
-		expect(builder.generateTransfer("recipient", { amount: NaN, memo: "" })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { amount: NaN, memo: "" }),
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
 		// @ts-ignore
-		expect(builder.generateTransfer("recipient", { amount: null, memo: "" })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { amount: null, memo: "" }),
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
