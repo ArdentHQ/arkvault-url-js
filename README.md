@@ -1,5 +1,9 @@
 # ARKVault URL
 
+<p align="center">
+    <img src="./banner.png" />
+</p>
+
 > A package to generate URLs compatible with ARKVault
 
 ## Usage
