@@ -7,7 +7,7 @@ export class URLBuilder {
 	#coin: string | undefined;
 	#nethash: string | undefined;
 
-	public constructor(baseUrl: string) {
+	public constructor(baseUrl = "https://app.arkvault.io/#/") {
 		this.#baseUrl = baseUrl;
 	}
 
