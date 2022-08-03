@@ -47,7 +47,8 @@ export class URLBuilder {
 		}
 
 		return this.#generate({
-			...options,
+			...(options.memo && { memo: options.memo }),
+			...(options.amount && { amount: options.amount }),
 			method: Methods.Transfer,
 			recipient,
 		});
