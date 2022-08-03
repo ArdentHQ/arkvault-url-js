@@ -13,6 +13,9 @@
 		"test": "LFD=localforage-driver-memory uvu -r tsm source",
 		"test:coverage": "c8 pnpm run test"
 	},
+	"files": [
+		"/distribution"
+	],
 	"keywords": [],
 	"author": "",
 	"license": "MIT",
