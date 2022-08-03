@@ -77,7 +77,7 @@ describe("URLBuilder", () => {
 	it("should throw if coin is not set when generating url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		builder.setCoin();
+		builder.setCoin("");
 
 		expect(() => builder.generateTransfer("recipient")).toThrowError("coin has to be set");
 	});
@@ -85,7 +85,7 @@ describe("URLBuilder", () => {
 	it("should throw if network is not set when generating url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		builder.setNethash();
+		builder.setNethash("");
 
 		expect(() => builder.generateTransfer("recipient")).toThrowError("nethash has to be set");
 	});
