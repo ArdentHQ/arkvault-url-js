@@ -4,7 +4,37 @@
 
 ## Usage
 
-See the [URL builder tests](https://github.com/ArdentHQ/arkvault-url/blob/master/source/url-builder.test.ts) for current usage of this package. More docs will be added soon.
+Install the package in your project
+
+```bash
+pnpm install @ardenthq/arkvault-url
+```
+
+Import the builder from the package
+
+```js
+import { URLBuilder } from "@ardenthq/arkvault-url";
+```
+
+Initiate the builder and generate your URL
+
+```js
+const builder = new URLBuilder();
+const url = builder.generateTransfer("recipient");
+
+> https://app.arkvault.io/#/?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988
+```
+
+For further customizations, you can use the following methods
+
+```js
+builder.setCoin("Custom"); // Defaults to "ARK"
+builder.setNethash("0123..ef)"; // Defaults to ARK's mainnet nethash
+
+new URLBuilder("https://your-url.com"); // Defaults to app.arkvault.io
+```
+
+> More detailed docs will follow soon
 
 ## Development
 
