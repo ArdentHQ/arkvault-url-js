@@ -4,7 +4,7 @@
 
 ## Usage
 
-See the [URL builder tests](https://github.com/ArdentHQ/arkvault-url/blob/master/src/url-builder.test.ts) for current usage of this package. More docs will be added soon.
+See the [URL builder tests](https://github.com/ArdentHQ/arkvault-url/blob/master/source/url-builder.test.ts) for current usage of this package. More docs will be added soon.
 
 ## Development
 

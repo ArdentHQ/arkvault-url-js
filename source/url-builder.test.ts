@@ -1,14 +1,16 @@
+import { describe } from "@ardenthq/sdk-test";
+
 import { Networks } from "./enums.js";
 import { URLBuilder } from "./url-builder.js";
 
-describe("URLBuilder", () => {
+describe("URLBuilder", ({ assert, it }) => {
 	it("should use default base url", () => {
 		const builder = new URLBuilder();
 
 		builder.setCoin("coin");
 		builder.setNethash("nethash");
 
-		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^https://app.arkvault.io/#/"));
+		assert.match(builder.generateTransfer("recipient"), new RegExp("^https://app.arkvault.io/#/"));
 	});
 
 	it("should use given base url", () => {
@@ -17,7 +19,7 @@ describe("URLBuilder", () => {
 		builder.setCoin("coin");
 		builder.setNethash("nethash");
 
-		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^baseUrl"));
+		assert.match(builder.generateTransfer("recipient"), new RegExp("^baseUrl"));
 	});
 
 	it("should set coin", () => {
@@ -25,7 +27,7 @@ describe("URLBuilder", () => {
 
 		builder.setCoin("coin");
 
-		expect(builder.coin()).toBe("coin");
+		assert.is(builder.coin(), "coin");
 	});
 
 	it("should set nethash", () => {
@@ -33,7 +35,7 @@ describe("URLBuilder", () => {
 
 		builder.setNethash("nethash");
 
-		expect(builder.nethash()).toBe("nethash");
+		assert.is(builder.nethash(), "nethash");
 	});
 
 	it("should set nethash from preset", () => {
@@ -41,19 +43,20 @@ describe("URLBuilder", () => {
 
 		builder.setNethashFromPreset("ark.devnet");
 
-		expect(builder.nethash()).toBe(Networks["ark.devnet"]);
+		assert.is(builder.nethash(), Networks["ark.devnet"]);
 	});
 
 	it("should throw when setting unkown nethash from preset", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(() => builder.setNethashFromPreset("unknown")).toThrowError("network does not exist");
+		assert.throws(() => builder.setNethashFromPreset("unknown"), "network does not exist");
 	});
 
 	it("should generate transfer url with memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient", { memo: "memo" })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { memo: "memo" }),
 			"baseUrl?memo=memo&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -61,7 +64,8 @@ describe("URLBuilder", () => {
 	it("should generate transfer url with amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient", { amount: 1000 })).toBe(
+		assert.is(
+			builder.generateTransfer("recipient", { amount: 1000 }),
 			"baseUrl?amount=1000&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -69,7 +73,8 @@ describe("URLBuilder", () => {
 	it("should generate transfer url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(builder.generateTransfer("recipient")).toBe(
+		assert.is(
+			builder.generateTransfer("recipient"),
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -79,7 +84,7 @@ describe("URLBuilder", () => {
 
 		builder.setCoin("");
 
-		expect(() => builder.generateTransfer("recipient")).toThrowError("coin has to be set");
+		assert.throws(() => builder.generateTransfer("recipient"), "coin has to be set");
 	});
 
 	it("should throw if network is not set when generating url", () => {
@@ -87,13 +92,13 @@ describe("URLBuilder", () => {
 
 		builder.setNethash("");
 
-		expect(() => builder.generateTransfer("recipient")).toThrowError("nethash has to be set");
+		assert.throws(() => builder.generateTransfer("recipient"), "nethash has to be set");
 	});
 
 	it("should require recipient when generating url", () => {
 		const builder = new URLBuilder("baseUrl");
 
 		//@ts-ignore
-		expect(() => builder.generateTransfer()).toThrowError("recipient is required");
+		assert.throws(() => builder.generateTransfer(), "recipient is required");
 	});
 });

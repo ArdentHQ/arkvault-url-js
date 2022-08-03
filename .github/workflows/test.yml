@@ -34,11 +34,4 @@ jobs:
             - name: Install (pnpm)
               run: pnpm install --frozen-lockfile
             - name: Test
-              uses: nick-invision/retry@v2
-              with:
-                  timeout_minutes: 10
-                  max_attempts: 1
-                  command: node --expose-gc ./node_modules/jest/bin/jest.js
-                      src/ --forceExit --maxWorkers=2 --logHeapUsage --watchAll=false --coverage
-                      --collectCoverageFrom='["src/**/*.{js,jsx,ts,tsx}","!<rootDir>/distribution/*","!jest.setup.js","!src/**/*.models.{js,jsx,ts,tsx}","!src/**/*.test.ts"]'
-                      --coverageThreshold='{"./src/":{"branches":100,"functions":100,"lines":100,"statements":100}}'
+                run: pnpm run test:coverage
