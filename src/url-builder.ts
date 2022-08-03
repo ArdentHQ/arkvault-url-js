@@ -4,10 +4,10 @@ import { Methods, Networks } from "./enums.js";
 export class URLBuilder {
 	readonly #baseUrl: string;
 
-	#coin: string | undefined;
-	#nethash: string | undefined;
+	#coin = "ARK";
+	#nethash: string = Networks["ark.mainnet"];
 
-	public constructor(baseUrl: string) {
+	public constructor(baseUrl = "https://app.arkvault.io/#/") {
 		this.#baseUrl = baseUrl;
 	}
 
