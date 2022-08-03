@@ -9,7 +9,6 @@ module.exports = {
 	transformIgnorePatterns: ["^.+\\.module\\.(css|sass|scss|svg})$"],
 	moduleNameMapper: {
 		"^react($|/.+)": "<rootDir>/node_modules/react$1",
-		"@/(.*)$": "<rootDir>/src/$1",
 		"^tests/(.*)$": "<rootDir>/src/tests/$1",
 		"^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
 	},
