@@ -23,7 +23,7 @@ jobs:
               with:
                   ref: ${{ github.head_ref }}
 
-             - uses: pnpm/action-setup@v2
+            - uses: pnpm/action-setup@v2
               with:
                   version: 6.24.4
 
@@ -41,4 +41,4 @@ jobs:
             - name: Publish to NPM
               run: npm publish --access=public --publish-branch=main
               env:
-                NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
