@@ -1,0 +1,50 @@
+name: Dependencies
+
+on:
+    schedule:
+        - cron: "0 0 * * 0"
+
+jobs:
+    javascript:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [16.9.1]
+
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  ref: ${{ github.head_ref }}
+                  token: ${{ secrets.GH_TOKEN }}
+
+            - uses: pnpm/action-setup@v2
+              with:
+                  version: 6.24.4
+
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: pnpm
+
+            - name: Update dependencies
+              run: npx npm-check-updates -u --target minor
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm build
+
+            - name: Create Pull Request
+              id: cpr
+              uses: peter-evans/create-pull-request@v3
+              with:
+                  token: ${{ secrets.GH_TOKEN }}
+                  commit-message: "chore: update JavaScript dependencies"
+                  committer: GitHub <noreply@github.com>
+                  author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+                  branch: chore/update-javascript-dependencies
+                  delete-branch: true
+                  title: "chore: update JavaScript dependencies"
+                  draft: false
