@@ -1,4 +1,11 @@
-import { GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions } from "./contracts.js";
+import {
+	GenerateMessageSignOptions,
+	GenerateMessageVerifyOptions,
+	GenerateTransferOptions,
+	MessageSignOptions,
+	SignedMessage,
+	TransferOptions,
+} from "./contracts.js";
 import { Methods, Networks } from "./enums.js";
 
 export class URLBuilder {
@@ -66,7 +73,20 @@ export class URLBuilder {
 		});
 	}
 
-	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions): string {
+	public generateMessageVerify({ message, signatory, signature }: SignedMessage) {
+		if (!message || !signatory || !signature) {
+			throw new Error("signed message is invalid");
+		}
+
+		return this.#generate({
+			message,
+			method: Methods.Verify,
+			signatory,
+			signature,
+		});
+	}
+
+	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions | GenerateMessageVerifyOptions): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
 		}

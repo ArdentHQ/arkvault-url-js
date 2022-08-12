@@ -143,7 +143,8 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(builder.generateMessageSign("test", { address: "address" }),
+		assert.is(
+			builder.generateMessageSign("test", { address: "address" }),
 			"baseUrl?address=address&message=test&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -156,5 +157,58 @@ describe("URLBuilder", ({ assert, it }) => {
 		assert.throws(() => builder.generateMessageSign(), "message is required");
 		//@ts-ignore
 		assert.throws(() => builder.generateMessageSign(undefined), "message is required");
+	});
+
+	it("should generate verify message url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		assert.is(
+			builder.generateMessageVerify({
+				message: "hello world",
+				signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+				signature:
+					"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+			}),
+			"baseUrl?message=hello+world&method=verify&signatory=025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca&signature=22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+		);
+	});
+
+	it("should require all properties of signed message when generating verify message url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		assert.throws(
+			() =>
+				builder.generateMessageVerify({
+					//@ts-ignore
+					message: undefined,
+					signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+					signature:
+						"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+				}),
+			new Error("signed message is invalid"),
+		);
+
+		assert.throws(
+			() =>
+				builder.generateMessageVerify({
+					message: "hello world",
+					//@ts-ignore
+					signatory: undefined,
+					signature:
+						"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+				}),
+			new Error("signed message is invalid"),
+		);
+
+		assert.throws(
+			() =>
+				builder.generateMessageVerify({
+					message: "hello world",
+					signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+					//@ts-ignore
+					signature: undefined,
+				}),
+			new Error("signed message is invalid"),
+		);
 	});
 });

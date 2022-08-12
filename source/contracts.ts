@@ -1,5 +1,11 @@
 import { Methods } from "./enums";
 
+interface SignedMessage {
+	signatory: string;
+	message: string;
+	signature: string;
+}
+
 type BaseOptions = {
 	coin?: string;
 	nethash?: string;
@@ -14,6 +20,8 @@ type MessageSignOptions = {
 	address?: string;
 } & BaseOptions;
 
+type MessageVerifyOptions = {} & BaseOptions;
+
 type GenerateTransferOptions = {
 	recipient?: string;
 	method?: Methods.Transfer;
@@ -24,4 +32,20 @@ type GenerateMessageSignOptions = {
 	method?: Methods.Sign;
 } & MessageSignOptions;
 
-export type { BaseOptions, GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions };
+type GenerateMessageVerifyOptions = {
+	message?: string;
+	signatory?: string;
+	signature?: string;
+	method?: Methods.Verify;
+} & MessageVerifyOptions;
+
+export type {
+	BaseOptions,
+	GenerateMessageSignOptions,
+	GenerateMessageVerifyOptions,
+	GenerateTransferOptions,
+	MessageSignOptions,
+	MessageVerifyOptions,
+	SignedMessage,
+	TransferOptions,
+};
