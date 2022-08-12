@@ -1,4 +1,9 @@
-import { GenerateMessageSignOptions, GenerateTransferOptions, MessageSignOptions, TransferOptions } from "./contracts.js";
+import {
+	GenerateMessageSignOptions,
+	GenerateTransferOptions,
+	MessageSignOptions,
+	TransferOptions,
+} from "./contracts.js";
 import { Methods, Networks } from "./enums.js";
 
 export class URLBuilder {
