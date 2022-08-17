@@ -57,28 +57,28 @@ builder.generateMessageSign("hello world");
 
 [pnpm](https://pnpm.js.org/en/) is required to be installed before starting. It is used to manage this repo.
 
-### Apply `eslint` rules to source
+### Install dependencies
 
 ```bash
-pnpm run lint
+pnpm install
 ```
 
-### Apply `eslint` rules to tests
+### Apply `eslint` rules and `prettier` formatting
 
 ```bash
-pnpm run lint:test
-```
-
-### Apply `prettier` formatting
-
-```bash
-pnpm run prettier
+pnpm format
 ```
 
 ### Run tests
 
 ```bash
-pnpm run test
+pnpm test
+```
+
+### Build the production code
+
+```bash
+pnpm build
 ```
 
 ## Security
