@@ -6,36 +6,49 @@
 
 > A package to generate URLs compatible with ARKVault
 
-## Usage
-
-Install the package in your project
+## Installation
 
 ```bash
 pnpm install @ardenthq/arkvault-url
 ```
 
-Import the builder from the package
+## Usage
+
+Import and instantiate the builder.
 
 ```js
 import { URLBuilder } from "@ardenthq/arkvault-url";
+
+const builder = new URLBuilder("https://your-url.com");
 ```
 
-Initiate the builder and generate your URL
+> The `baseUrl` parameter is optional and defaults to "https://app.arkvault.io"
+
+The builder can be further configured by setting a custom coin and nethash, which default to "ARK" and ARK's mainnet nethash otherwise.
 
 ```js
-const builder = new URLBuilder();
-const url = builder.generateTransfer("recipient");
+builder.setCoin("CUSTOM");
+builder.setNethash("0123...cdef)";
+```
+
+### Methods
+
+The following methods are available.
+
+#### Transfer
+
+```js
+builder.generateTransfer("recipient");
 
 > https://app.arkvault.io/#/?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988
 ```
 
-For further customizations, you can use the following methods
+#### Sign Message
 
 ```js
-builder.setCoin("Custom"); // Defaults to "ARK"
-builder.setNethash("0123..ef)"; // Defaults to ARK's mainnet nethash
+builder.generateMessageSign("hello world");
 
-new URLBuilder("https://your-url.com"); // Defaults to app.arkvault.io
+> https://app.arkvault.io/#/?method=sign&message=hello+world&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988"
 ```
 
 > More detailed docs will follow soon
@@ -44,28 +57,28 @@ new URLBuilder("https://your-url.com"); // Defaults to app.arkvault.io
 
 [pnpm](https://pnpm.js.org/en/) is required to be installed before starting. It is used to manage this repo.
 
-### Apply `eslint` rules to source
+### Install dependencies
 
 ```bash
-pnpm run lint
+pnpm install
 ```
 
-### Apply `eslint` rules to tests
+### Apply `eslint` rules and `prettier` formatting
 
 ```bash
-pnpm run lint:test
-```
-
-### Apply `prettier` formatting
-
-```bash
-pnpm run prettier
+pnpm format
 ```
 
 ### Run tests
 
 ```bash
-pnpm run test
+pnpm test
+```
+
+### Build the production code
+
+```bash
+pnpm build
 ```
 
 ## Security
