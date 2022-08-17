@@ -51,6 +51,18 @@ builder.generateMessageSign("hello world");
 > https://app.arkvault.io/#/?method=sign&message=hello+world&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988"
 ```
 
+#### Verify Message
+
+```js
+builder.generateMessageVerify({
+    message: "hello world",
+    signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+    signature: "22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+});
+
+> https://app.arkvault.io/#/?method=verify&message=hello+world&signatory=025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca&signature=22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988"
+```
+
 > More detailed docs will follow soon
 
 ## Development
