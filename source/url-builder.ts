@@ -11,6 +11,7 @@ import { Methods, Networks } from "./enums.js";
 export class URLBuilder {
 	readonly #baseUrl: string;
 
+	#username: string | undefined = undefined;
 	#coin = "ARK";
 	#nethash: string = Networks["ark.mainnet"];
 
@@ -101,5 +102,15 @@ export class URLBuilder {
 		const queryString = new URLSearchParams(options as any).toString();
 
 		return `${this.#baseUrl}?${queryString}`;
+	}
+
+	public username() {
+		return this.#username;
+	}
+
+	public setUsername(username: string) {
+		this.#username = username;
+
+		return this;
 	}
 }
