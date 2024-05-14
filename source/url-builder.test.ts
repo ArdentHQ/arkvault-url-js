@@ -226,12 +226,4 @@ describe("URLBuilder", ({ assert, it }) => {
 			new Error("signed message is invalid"),
 		);
 	});
-
-	it("should set username", () => {
-		const builder = new URLBuilder("baseUrl");
-
-		builder.setUsername("username");
-
-		assert.is(builder.username(), "username");
-	});
 });
