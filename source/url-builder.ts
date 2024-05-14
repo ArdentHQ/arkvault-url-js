@@ -1,7 +1,6 @@
 import {
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
-	GenerateOptions,
 	GenerateTransferOptions,
 	GenerateVoteOptions,
 	MessageSignOptions,
