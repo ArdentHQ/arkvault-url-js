@@ -39,11 +39,17 @@ type GenerateMessageVerifyOptions = {
 	method?: Methods.Verify;
 } & MessageVerifyOptions;
 
+type GenerateUsernameOptions = {
+	username: string;
+	method?: Methods.Username;
+} & BaseOptions;
+
 export type {
 	BaseOptions,
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
+	GenerateUsernameOptions,
 	MessageSignOptions,
 	MessageVerifyOptions,
 	SignedMessage,
