@@ -88,15 +88,14 @@ export class URLBuilder {
 		});
 	}
 
-	public generateVote(subject: string) {
+	public generateVote(validatorPublicKey: string, username?: string) {
 		const options: GenerateVoteOptions = {
 			method: Methods.Vote,
+			validator: validatorPublicKey,
 		};
 
-		if (subject.length === 66) {
-			options.publicKey = subject;
-		} else {
-			options.delegate = subject;
+		if (username !== undefined) {
+			options.username = username;
 		}
 
 		return this.#generate(options);
