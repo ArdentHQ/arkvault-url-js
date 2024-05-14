@@ -158,6 +158,12 @@ describe("URLBuilder", ({ assert, it }) => {
 		);
 	});
 
+	it("should require username when generating username url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		assert.throws(() => builder.generateUsername(""), new Error("signed message is invalid"));
+	});
+
 	it("should require message when generating sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
