@@ -87,6 +87,22 @@ export class URLBuilder {
 		});
 	}
 
+	public generateUsername(username: string) {
+		if (!this.#nethash) {
+			throw new Error("nethash has to be set");
+		}
+
+		if (!username) {
+			throw new Error("username has to be set");
+		}
+
+		return this.#generateQuery({
+			method: Methods.Username,
+			nethash: this.#nethash,
+			username,
+		});
+	}
+
 	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions | GenerateMessageVerifyOptions): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
@@ -99,7 +115,11 @@ export class URLBuilder {
 		options.coin = this.#coin;
 		options.nethash = this.#nethash;
 
-		const queryString = new URLSearchParams(options as any).toString();
+		return this.#generateQuery(options);
+	}
+
+	#generateQuery(options: any): string {
+		const queryString = new URLSearchParams(options).toString();
 
 		return `${this.#baseUrl}?${queryString}`;
 	}

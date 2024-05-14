@@ -149,6 +149,15 @@ describe("URLBuilder", ({ assert, it }) => {
 		);
 	});
 
+	it("should generate username url", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		assert.is(
+			builder.generateUsername("alfy"),
+			"baseUrl?method=username&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988&username=alfy",
+		);
+	});
+
 	it("should require message when generating sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
