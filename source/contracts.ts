@@ -39,11 +39,18 @@ type GenerateMessageVerifyOptions = {
 	method?: Methods.Verify;
 } & MessageVerifyOptions;
 
+type GenerateVoteOptions = {
+	publicKey?: string;
+	delegate?: string;
+	method?: Methods.Vote;
+} & TransferOptions;
+
 export type {
 	BaseOptions,
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
+	GenerateVoteOptions,
 	MessageSignOptions,
 	MessageVerifyOptions,
 	SignedMessage,
