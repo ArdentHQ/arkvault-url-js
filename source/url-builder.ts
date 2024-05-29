@@ -2,6 +2,7 @@ import {
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
+	GenerateUsernameOptions,
 	MessageSignOptions,
 	SignedMessage,
 	TransferOptions,
@@ -86,7 +87,24 @@ export class URLBuilder {
 		});
 	}
 
-	#generate(options: GenerateTransferOptions | GenerateMessageSignOptions | GenerateMessageVerifyOptions): string {
+	public generateUsername(username: string) {
+		if (!username) {
+			throw new Error("username has to be set");
+		}
+
+		return this.#generate({
+			method: Methods.Username,
+			username,
+		});
+	}
+
+	#generate(
+		options:
+			| GenerateTransferOptions
+			| GenerateMessageSignOptions
+			| GenerateMessageVerifyOptions
+			| GenerateUsernameOptions,
+	): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");
 		}
