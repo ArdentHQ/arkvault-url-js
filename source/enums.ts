@@ -3,6 +3,7 @@ enum Methods {
 	"Sign" = "sign",
 	"Verify" = "verify",
 	"Username" = "username",
+	"Vote" = "vote",
 }
 
 enum Networks {

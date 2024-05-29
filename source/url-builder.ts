@@ -3,6 +3,7 @@ import {
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
 	GenerateUsernameOptions,
+	GenerateVoteOptions,
 	MessageSignOptions,
 	SignedMessage,
 	TransferOptions,
@@ -98,12 +99,27 @@ export class URLBuilder {
 		});
 	}
 
+	public generateVote(subject: string) {
+		const options: GenerateVoteOptions = {
+			method: Methods.Vote,
+		};
+
+		if (subject.length === 66) {
+			options.publicKey = subject;
+		} else {
+			options.delegate = subject;
+		}
+
+		return this.#generate(options);
+	}
+
 	#generate(
 		options:
 			| GenerateTransferOptions
 			| GenerateMessageSignOptions
 			| GenerateMessageVerifyOptions
-			| GenerateUsernameOptions,
+			| GenerateUsernameOptions
+			| GenerateVoteOptions,
 	): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");

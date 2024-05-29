@@ -44,12 +44,19 @@ type GenerateUsernameOptions = {
 	method?: Methods.Username;
 } & BaseOptions;
 
+type GenerateVoteOptions = {
+	publicKey?: string;
+	delegate?: string;
+	method?: Methods.Vote;
+} & TransferOptions;
+
 export type {
 	BaseOptions,
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
 	GenerateUsernameOptions,
+	GenerateVoteOptions,
 	MessageSignOptions,
 	MessageVerifyOptions,
 	SignedMessage,
