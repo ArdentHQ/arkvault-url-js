@@ -15,7 +15,7 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 16.9.1
+                    - 18.20.2
         concurrency:
             group: ${{ github.head_ref }}-test-app
             cancel-in-progress: true
@@ -26,7 +26,7 @@ jobs:
                   token: ${{ secrets.GH_TOKEN }}
             - uses: pnpm/action-setup@v2
               with:
-                  version: 7
+                  version: 9
             - uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
@@ -41,7 +41,7 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 16.9.1
+                    - 18.20.2
         concurrency:
             group: ${{ github.head_ref }}-test-app
             cancel-in-progress: true
@@ -52,7 +52,7 @@ jobs:
                   token: ${{ secrets.GH_TOKEN }}
             - uses: pnpm/action-setup@v2
               with:
-                  version: 7
+                  version: 9
             - uses: actions/setup-node@v2
               with:
                   node-version: ${{ matrix.node-version }}
