@@ -2,6 +2,7 @@ enum Methods {
 	"Transfer" = "transfer",
 	"Sign" = "sign",
 	"Verify" = "verify",
+	"Username" = "username",
 	"Vote" = "vote",
 }
 

@@ -2,6 +2,7 @@ import {
 	GenerateMessageSignOptions,
 	GenerateMessageVerifyOptions,
 	GenerateTransferOptions,
+	GenerateUsernameOptions,
 	GenerateVoteOptions,
 	MessageSignOptions,
 	SignedMessage,
@@ -87,14 +88,26 @@ export class URLBuilder {
 		});
 	}
 
-	public generateVote(validatorPublicKey: string, username?: string) {
+	public generateUsername(username: string) {
+		if (!username) {
+			throw new Error("username has to be set");
+		}
+
+		return this.#generate({
+			method: Methods.Username,
+			username,
+		});
+	}
+
+	public generateVote(subject: string) {
 		const options: GenerateVoteOptions = {
 			method: Methods.Vote,
-			validator: validatorPublicKey,
 		};
 
-		if (username !== undefined) {
-			options.username = username;
+		if (subject.length === 66) {
+			options.publicKey = subject;
+		} else {
+			options.delegate = subject;
 		}
 
 		return this.#generate(options);
@@ -105,6 +118,7 @@ export class URLBuilder {
 			| GenerateTransferOptions
 			| GenerateMessageSignOptions
 			| GenerateMessageVerifyOptions
+			| GenerateUsernameOptions
 			| GenerateVoteOptions,
 	): string {
 		if (!this.#coin) {
