@@ -227,21 +227,21 @@ describe("URLBuilder", ({ assert, it }) => {
 		);
 	});
 
-	it("should generate a vote url from delegate", () => {
+	it("should generate a vote url from validator public key", () => {
 		const builder = new URLBuilder("baseUrl");
 
 		assert.is(
-			builder.generateVote("benchdark"),
-			"baseUrl?method=vote&delegate=benchdark&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4"),
+			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
 
-	it("should generate a vote url from delegate public key", function () {
+	it("should generate a vote url with username", () => {
 		const builder = new URLBuilder("baseUrl");
 
 		assert.is(
-			builder.generateVote("0296893488d335ff818391da7c450cfeb7821a4eb535b15b95808ea733915fbfb1"),
-			"baseUrl?method=vote&publicKey=0296893488d335ff818391da7c450cfeb7821a4eb535b15b95808ea733915fbfb1&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
+			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4", "alfy"),
+			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&username=alfy&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
 });
