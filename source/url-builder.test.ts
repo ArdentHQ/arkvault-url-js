@@ -31,9 +31,9 @@ describe("URLBuilder", () => {
 	it("should set nethash from preset", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		builder.setNethashFromPreset("ark.devnet");
+		builder.setNethashFromPreset("mainsail.devnet");
 
-		expect(builder.nethash()).toBe(Networks["ark.devnet"]);
+		expect(builder.nethash()).toBe(Networks["mainsail.devnet"]);
 	});
 
 	it("should throw when setting unkown nethash from preset", () => {
