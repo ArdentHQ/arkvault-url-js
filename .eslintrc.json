@@ -10,7 +10,6 @@
 		"@typescript-eslint",
 		"prettier",
 		"promise",
-		"simple-import-sort",
 		"sonarjs",
 		"sort-keys-fix",
 		"testing-library",
@@ -96,8 +95,6 @@
 			}
 		],
 		"promise/param-names": "error",
-		"simple-import-sort/exports": "error",
-		"simple-import-sort/imports": "error",
 		"sonarjs/cognitive-complexity": "warn",
 		"sonarjs/no-all-duplicated-branches": "error",
 		"sonarjs/no-collapsible-if": "error",
@@ -141,6 +138,7 @@
 		"unicorn/prefer-ternary": "off",
 		"unicorn/prefer-top-level-await": "warn",
 		"unicorn/prevent-abbreviations": "warn",
+		"unicorn/expiring-todo-comments": "off",
 		"unused-imports/no-unused-imports-ts": "warn",
 		"tsdoc/syntax": "off"
 	}

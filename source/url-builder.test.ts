@@ -1,6 +1,7 @@
-import { Networks } from "./enums.js";
-import { URLBuilder } from "./";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+
+import { Networks } from "./enums";
+import { URLBuilder } from ".";
 
 describe("URLBuilder", () => {
 	it("should use default base url", () => {
@@ -54,9 +55,7 @@ describe("URLBuilder", () => {
 	it("should generate transfer url with memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient", { memo: "memo" }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { memo: "memo" })).toBe(
 			"baseUrl?memo=memo&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -64,9 +63,7 @@ describe("URLBuilder", () => {
 	it("should generate transfer url with amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient", { amount: 1000 }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { amount: 1000 })).toBe(
 			"baseUrl?amount=1000&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -74,9 +71,7 @@ describe("URLBuilder", () => {
 	it("should generate transfer url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient"),
-		).toBe(
+		expect(builder.generateTransfer("recipient")).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -107,9 +102,7 @@ describe("URLBuilder", () => {
 	it("should include memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient", { memo: "test" }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { memo: "test" })).toBe(
 			"baseUrl?memo=test&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -117,9 +110,7 @@ describe("URLBuilder", () => {
 	it("should include amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient", { amount: 10 }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { amount: 10 })).toBe(
 			"baseUrl?amount=10&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -127,15 +118,11 @@ describe("URLBuilder", () => {
 	it("should not include amount & memo options if they are falsy", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateTransfer("recipient", { amount: undefined, memo: undefined }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { amount: undefined, memo: undefined })).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
-		expect(
-			builder.generateTransfer("recipient", { amount: NaN, memo: "" }),
-		).toBe(
+		expect(builder.generateTransfer("recipient", { amount: Number.NaN, memo: "" })).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
@@ -150,9 +137,7 @@ describe("URLBuilder", () => {
 	it("should generate sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateMessageSign("test", { address: "address" }),
-		).toBe(
+		expect(builder.generateMessageSign("test", { address: "address" })).toBe(
 			"baseUrl?address=address&message=test&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -160,9 +145,7 @@ describe("URLBuilder", () => {
 	it("should generate username url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateUsername("alfy"),
-		).toBe(
+		expect(builder.generateUsername("alfy")).toBe(
 			"baseUrl?method=username&username=alfy&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -180,7 +163,7 @@ describe("URLBuilder", () => {
 		//@ts-ignore
 		expect(() => builder.generateMessageSign()).toThrow("message is required");
 		//@ts-ignore
-		expect(() => builder.generateMessageSign(undefined)).toThrow("message is required");
+		expect(() => builder.generateMessageSign()).toThrow("message is required");
 	});
 
 	it("should generate verify message url", () => {
@@ -234,9 +217,7 @@ describe("URLBuilder", () => {
 	it("should generate a vote url from validator public key", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4"),
-		).toBe(
+		expect(builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4")).toBe(
 			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -244,9 +225,7 @@ describe("URLBuilder", () => {
 	it("should generate a vote url with username", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		expect(
-			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4", "alfy"),
-		).toBe(
+		expect(builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4", "alfy")).toBe(
 			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&username=alfy&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});

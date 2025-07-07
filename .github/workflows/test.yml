@@ -16,6 +16,7 @@ jobs:
             matrix:
                 node-version:
                     - 22
+
         concurrency:
             group: ${{ github.head_ref }}-test-app
             cancel-in-progress: true
