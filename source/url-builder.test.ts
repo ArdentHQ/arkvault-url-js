@@ -1,16 +1,16 @@
-import { describe } from "@ardenthq/sdk-test";
+import { describe, expect, it } from "vitest";
 
-import { Networks } from "./enums.js";
-import { URLBuilder } from "./url-builder.js";
+import { Networks } from "./enums";
+import { URLBuilder } from ".";
 
-describe("URLBuilder", ({ assert, it }) => {
+describe("URLBuilder", () => {
 	it("should use default base url", () => {
 		const builder = new URLBuilder();
 
 		builder.setCoin("coin");
 		builder.setNethash("nethash");
 
-		assert.match(builder.generateTransfer("recipient"), new RegExp("^https://app.arkvault.io/#/"));
+		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^https://app.arkvault.io/#/"));
 	});
 
 	it("should use given base url", () => {
@@ -19,7 +19,7 @@ describe("URLBuilder", ({ assert, it }) => {
 		builder.setCoin("coin");
 		builder.setNethash("nethash");
 
-		assert.match(builder.generateTransfer("recipient"), new RegExp("^baseUrl"));
+		expect(builder.generateTransfer("recipient")).toMatch(new RegExp("^baseUrl"));
 	});
 
 	it("should set coin", () => {
@@ -27,7 +27,7 @@ describe("URLBuilder", ({ assert, it }) => {
 
 		builder.setCoin("coin");
 
-		assert.is(builder.coin(), "coin");
+		expect(builder.coin()).toBe("coin");
 	});
 
 	it("should set nethash", () => {
@@ -35,7 +35,7 @@ describe("URLBuilder", ({ assert, it }) => {
 
 		builder.setNethash("nethash");
 
-		assert.is(builder.nethash(), "nethash");
+		expect(builder.nethash()).toBe("nethash");
 	});
 
 	it("should set nethash from preset", () => {
@@ -43,20 +43,19 @@ describe("URLBuilder", ({ assert, it }) => {
 
 		builder.setNethashFromPreset("ark.devnet");
 
-		assert.is(builder.nethash(), Networks["ark.devnet"]);
+		expect(builder.nethash()).toBe(Networks["ark.devnet"]);
 	});
 
 	it("should throw when setting unkown nethash from preset", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.throws(() => builder.setNethashFromPreset("unknown"), "network does not exist");
+		expect(() => builder.setNethashFromPreset("unknown")).toThrow("network does not exist");
 	});
 
 	it("should generate transfer url with memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient", { memo: "memo" }),
+		expect(builder.generateTransfer("recipient", { memo: "memo" })).toBe(
 			"baseUrl?memo=memo&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -64,8 +63,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate transfer url with amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient", { amount: 1000 }),
+		expect(builder.generateTransfer("recipient", { amount: 1000 })).toBe(
 			"baseUrl?amount=1000&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -73,8 +71,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate transfer url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient"),
+		expect(builder.generateTransfer("recipient")).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -84,7 +81,7 @@ describe("URLBuilder", ({ assert, it }) => {
 
 		builder.setCoin("");
 
-		assert.throws(() => builder.generateTransfer("recipient"), "coin has to be set");
+		expect(() => builder.generateTransfer("recipient")).toThrow("coin has to be set");
 	});
 
 	it("should throw if network is not set when generating url", () => {
@@ -92,21 +89,20 @@ describe("URLBuilder", ({ assert, it }) => {
 
 		builder.setNethash("");
 
-		assert.throws(() => builder.generateTransfer("recipient"), "nethash has to be set");
+		expect(() => builder.generateTransfer("recipient")).toThrow("nethash has to be set");
 	});
 
 	it("should require recipient when generating url", () => {
 		const builder = new URLBuilder("baseUrl");
 
 		//@ts-ignore
-		assert.throws(() => builder.generateTransfer(), "recipient is required");
+		expect(() => builder.generateTransfer()).toThrow("recipient is required");
 	});
 
 	it("should include memo", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient", { memo: "test" }),
+		expect(builder.generateTransfer("recipient", { memo: "test" })).toBe(
 			"baseUrl?memo=test&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -114,8 +110,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should include amount", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient", { amount: 10 }),
+		expect(builder.generateTransfer("recipient", { amount: 10 })).toBe(
 			"baseUrl?amount=10&method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -123,19 +118,18 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should not include amount & memo options if they are falsy", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateTransfer("recipient", { amount: undefined, memo: undefined }),
+		expect(builder.generateTransfer("recipient", { amount: undefined, memo: undefined })).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
-		assert.is(
-			builder.generateTransfer("recipient", { amount: NaN, memo: "" }),
+		expect(builder.generateTransfer("recipient", { amount: Number.NaN, memo: "" })).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 
-		assert.is(
+		expect(
 			// @ts-ignore
 			builder.generateTransfer("recipient", { amount: null, memo: "" }),
+		).toBe(
 			"baseUrl?method=transfer&recipient=recipient&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -143,8 +137,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateMessageSign("test", { address: "address" }),
+		expect(builder.generateMessageSign("test", { address: "address" })).toBe(
 			"baseUrl?address=address&message=test&method=sign&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -152,8 +145,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate username url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateUsername("alfy"),
+		expect(builder.generateUsername("alfy")).toBe(
 			"baseUrl?method=username&username=alfy&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -161,29 +153,30 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should require username when generating username url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.throws(() => builder.generateUsername(""), new Error("signed message is invalid"));
+		expect(() => builder.generateUsername("")).toThrow(new Error("username has to be set"));
 	});
 
 	it("should require message when generating sign message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.throws(() => builder.generateMessageSign(""), "message is required");
+		expect(() => builder.generateMessageSign("")).toThrow("message is required");
 		//@ts-ignore
-		assert.throws(() => builder.generateMessageSign(), "message is required");
+		expect(() => builder.generateMessageSign()).toThrow("message is required");
 		//@ts-ignore
-		assert.throws(() => builder.generateMessageSign(undefined), "message is required");
+		expect(() => builder.generateMessageSign()).toThrow("message is required");
 	});
 
 	it("should generate verify message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
+		expect(
 			builder.generateMessageVerify({
 				message: "hello world",
 				signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
 				signature:
 					"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
 			}),
+		).toBe(
 			"baseUrl?message=hello+world&method=verify&signatory=025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca&signature=22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -191,47 +184,40 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should require all properties of signed message when generating verify message url", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.throws(
-			() =>
-				builder.generateMessageVerify({
-					//@ts-ignore
-					message: undefined,
-					signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
-					signature:
-						"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
-				}),
-			new Error("signed message is invalid"),
-		);
+		expect(() =>
+			builder.generateMessageVerify({
+				//@ts-ignore
+				message: undefined,
+				signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+				signature:
+					"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+			}),
+		).toThrow(new Error("signed message is invalid"));
 
-		assert.throws(
-			() =>
-				builder.generateMessageVerify({
-					message: "hello world",
-					//@ts-ignore
-					signatory: undefined,
-					signature:
-						"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
-				}),
-			new Error("signed message is invalid"),
-		);
+		expect(() =>
+			builder.generateMessageVerify({
+				message: "hello world",
+				//@ts-ignore
+				signatory: undefined,
+				signature:
+					"22f8ef55e8120fbf51e2407c808a1cc98d7ef961646226a3d3fad606437f8ba49ab68dc33c6d4a478f954c72e9bac2b4a4fe48baa70121a311a875dba1527d9d",
+			}),
+		).toThrow(new Error("signed message is invalid"));
 
-		assert.throws(
-			() =>
-				builder.generateMessageVerify({
-					message: "hello world",
-					signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
-					//@ts-ignore
-					signature: undefined,
-				}),
-			new Error("signed message is invalid"),
-		);
+		expect(() =>
+			builder.generateMessageVerify({
+				message: "hello world",
+				signatory: "025f81956d5826bad7d30daed2b5c8c98e72046c1ec8323da336445476183fb7ca",
+				//@ts-ignore
+				signature: undefined,
+			}),
+		).toThrow(new Error("signed message is invalid"));
 	});
 
 	it("should generate a vote url from validator public key", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4"),
+		expect(builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4")).toBe(
 			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
@@ -239,8 +225,7 @@ describe("URLBuilder", ({ assert, it }) => {
 	it("should generate a vote url with username", () => {
 		const builder = new URLBuilder("baseUrl");
 
-		assert.is(
-			builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4", "alfy"),
+		expect(builder.generateVote("03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4", "alfy")).toBe(
 			"baseUrl?method=vote&validator=03a461f557c88612328c8e6d69991eaa7916359dfd2c6a65fd988b672a8bb780c4&username=alfy&coin=ARK&nethash=6e84d08bd299ed97c212c886c98a57e36545c8f5d645ca7eeae63a8bd62d8988",
 		);
 	});
