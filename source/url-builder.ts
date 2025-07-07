@@ -13,21 +13,11 @@ import { Methods, Networks } from "./enums.js";
 export class URLBuilder {
 	readonly #baseUrl: string;
 
-	#coin = "ARK";
-	#nethash: string = Networks["ark.mainnet"];
+	#nethash: string = Networks["mainsail.mainnet"];
 
+	// @TODO: Fix default url for mainsail once available.
 	public constructor(baseUrl = "https://app.arkvault.io/#/") {
 		this.#baseUrl = baseUrl;
-	}
-
-	public coin() {
-		return this.#coin;
-	}
-
-	public setCoin(coin: string) {
-		this.#coin = coin;
-
-		return this;
 	}
 
 	public nethash() {
@@ -120,15 +110,10 @@ export class URLBuilder {
 			| GenerateUsernameOptions
 			| GenerateVoteOptions,
 	): string {
-		if (!this.#coin) {
-			throw new Error("coin has to be set");
-		}
-
 		if (!this.#nethash) {
 			throw new Error("nethash has to be set");
 		}
 
-		options.coin = this.#coin;
 		options.nethash = this.#nethash;
 
 		const queryString = new URLSearchParams(options as any).toString();
