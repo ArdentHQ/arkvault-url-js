@@ -8,6 +8,7 @@ interface SignedMessage {
 
 type BaseOptions = {
 	nethash?: string;
+	coin?: string;
 };
 
 type TransferOptions = {

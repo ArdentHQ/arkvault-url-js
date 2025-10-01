@@ -15,6 +15,8 @@ export class URLBuilder {
 
 	#nethash: string = Networks["mainsail.mainnet"];
 
+	#coin?: string;
+
 	// @TODO: Fix default url for mainsail once available.
 	public constructor(baseUrl = "https://app.arkvault.io/#/") {
 		this.#baseUrl = baseUrl;
@@ -36,6 +38,12 @@ export class URLBuilder {
 
 	public setNethash(nethash: string) {
 		this.#nethash = nethash;
+
+		return this;
+	}
+
+	public setCoin(coin: string) {
+		this.#coin = coin;
 
 		return this;
 	}
@@ -115,6 +123,9 @@ export class URLBuilder {
 		}
 
 		options.nethash = this.#nethash;
+		if (this.#coin) {
+			options.coin = this.#coin;
+		}
 
 		const queryString = new URLSearchParams(options as any).toString();
 
