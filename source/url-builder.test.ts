@@ -28,6 +28,14 @@ describe("URLBuilder", () => {
 		expect(builder.nethash()).toBe("nethash");
 	});
 
+	it("should set coin", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("coin");
+
+		expect(builder.coin()).toBe("coin");
+	});
+
 	it("should set nethash from preset", () => {
 		const builder = new URLBuilder("baseUrl");
 
@@ -40,6 +48,16 @@ describe("URLBuilder", () => {
 		const builder = new URLBuilder("baseUrl");
 
 		expect(() => builder.setNethashFromPreset("unknown")).toThrow("network does not exist");
+	});
+
+	it("should generate url with coin", () => {
+		const builder = new URLBuilder("baseUrl");
+
+		builder.setCoin("custom-coin");
+
+		expect(builder.generateTransfer("recipient", { memo: "memo" })).toBe(
+			"baseUrl?memo=memo&method=transfer&recipient=recipient&nethash=c481dea3dcc13708364e576dff94dd499692b56cbc646d5acd22a3902297dd51&coin=custom-coin",
+		);
 	});
 
 	it("should generate transfer url with memo", () => {
