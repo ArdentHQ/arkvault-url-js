@@ -4,13 +4,14 @@ on:
     push:
         branches:
             - "master"
+            - "feat/mainsail"
 
 permissions:
     contents: read
 
 jobs:
-    publish:
-        if: "contains(github.event.head_commit.message, 'release:')"
+    master:
+        if: contains(github.event.head_commit.message, 'release:') && github.ref == 'refs/heads/master'
 
         runs-on: ubuntu-latest
 
@@ -42,5 +43,41 @@ jobs:
 
             - name: Publish to NPM
               run: npm publish --access=public --publish-branch=master
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    mainsail:
+        if: contains(github.event.head_commit.message, 'release:') && github.ref == 'refs/heads/feat/mainsail'
+
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version:
+                    - 22
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  ref: ${{ github.head_ref }}
+
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: 10
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  registry-url: https://registry.npmjs.org/
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm build
+
+            - name: Publish to NPM
+              run: npm publish --access=public --publish-branch=feat/mainsail --tag=next
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
