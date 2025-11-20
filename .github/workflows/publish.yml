@@ -7,6 +7,7 @@ on:
             - "feat/mainsail"
 
 permissions:
+    id-token: write # OIDC
     contents: read
 
 jobs:
