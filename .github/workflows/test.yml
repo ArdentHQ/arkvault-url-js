@@ -17,7 +17,7 @@ jobs:
                 node-version:
                     - 24
         concurrency:
-            group: ${{ github.head_ref }}-test-app
+            group: ${{ github.head_ref }}-test-app-build
             cancel-in-progress: true
         steps:
             - uses: actions/checkout@v7
@@ -41,7 +41,7 @@ jobs:
                 node-version:
                     - 24
         concurrency:
-            group: ${{ github.head_ref }}-test-app
+            group: ${{ github.head_ref }}-test-app-source
             cancel-in-progress: true
         steps:
             - uses: actions/checkout@v7
