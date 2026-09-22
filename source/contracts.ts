@@ -20,7 +20,10 @@ type MessageSignOptions = {
 	address?: string;
 } & BaseOptions;
 
-type MessageVerifyOptions = {} & BaseOptions;
+// structurally identical to BaseOptions, but kept as its own name since it's part of
+// this package's public type exports and consumers may import it by name
+// eslint-disable-next-line sonarjs/redundant-type-aliases
+type MessageVerifyOptions = BaseOptions;
 
 type GenerateTransferOptions = {
 	recipient?: string;

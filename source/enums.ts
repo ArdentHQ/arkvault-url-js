@@ -1,8 +1,8 @@
 enum Methods {
-	"Transfer" = "transfer",
-	"Sign" = "sign",
-	"Verify" = "verify",
-	"Vote" = "vote",
+	Transfer = "transfer",
+	Sign = "sign",
+	Verify = "verify",
+	Vote = "vote",
 }
 
 enum Networks {
