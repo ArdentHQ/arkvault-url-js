@@ -103,10 +103,7 @@ export class URLBuilder {
 
 	#generate(
 		options:
-			| GenerateTransferOptions
-			| GenerateMessageSignOptions
-			| GenerateMessageVerifyOptions
-			| GenerateVoteOptions,
+			GenerateTransferOptions | GenerateMessageSignOptions | GenerateMessageVerifyOptions | GenerateVoteOptions,
 	): string {
 		if (!this.#coin) {
 			throw new Error("coin has to be set");

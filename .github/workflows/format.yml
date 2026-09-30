@@ -10,18 +10,16 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [18.20.2]
+                node-version: [24]
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v7
               with:
                   token: ${{ secrets.GH_TOKEN }}
 
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 9
+            - uses: pnpm/action-setup@v6
 
-            - uses: actions/setup-node@v2
+            - uses: actions/setup-node@v7
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: pnpm
@@ -35,7 +33,7 @@ jobs:
             - name: Format
               run: pnpm format
 
-            - uses: stefanzweifel/git-auto-commit-action@v4
+            - uses: stefanzweifel/git-auto-commit-action@v7
               with:
                   commit_message: "style: resolve style guide violations"
                   branch: ${{ github.head_ref }}

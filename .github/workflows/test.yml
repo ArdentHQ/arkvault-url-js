@@ -15,19 +15,17 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 18.20.2
+                    - 24
         concurrency:
-            group: ${{ github.head_ref }}-test-app
+            group: ${{ github.head_ref }}-test-app-build
             cancel-in-progress: true
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v7
               with:
                   ref: ${{ github.head_ref }}
                   token: ${{ secrets.GH_TOKEN }}
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 9
-            - uses: actions/setup-node@v2
+            - uses: pnpm/action-setup@v6
+            - uses: actions/setup-node@v7
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: pnpm
@@ -41,19 +39,17 @@ jobs:
         strategy:
             matrix:
                 node-version:
-                    - 18.20.2
+                    - 24
         concurrency:
-            group: ${{ github.head_ref }}-test-app
+            group: ${{ github.head_ref }}-test-app-source
             cancel-in-progress: true
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v7
               with:
                   ref: ${{ github.head_ref }}
                   token: ${{ secrets.GH_TOKEN }}
-            - uses: pnpm/action-setup@v2
-              with:
-                  version: 9
-            - uses: actions/setup-node@v2
+            - uses: pnpm/action-setup@v6
+            - uses: actions/setup-node@v7
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: pnpm
